@@ -1,0 +1,19 @@
+{
+  "name": "html-deck",
+  "version": "1.0.0",
+  "description": "Hand-code slides as HTML (1280×720), render with headless Chrome, and assemble an image-per-slide .pptx. Ships as a Claude Code skill, also usable standalone.",
+  "type": "module",
+  "license": "MIT",
+  "keywords": ["slides", "presentation", "pptx", "html-to-pptx", "puppeteer", "claude-code", "skill", "deck"],
+  "scripts": {
+    "build": "node html2pptx.mjs",
+    "demo": "node html2pptx.mjs template.html template.pptx 2"
+  },
+  "dependencies": {
+    "puppeteer-core": "^23.0.0",
+    "pptxgenjs": "^3.12.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

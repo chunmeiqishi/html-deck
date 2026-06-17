@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>演示文稿模板</title>
+<style>
+  :root{
+    --bg:#dfe4ec; --slide:#ffffff; --ink:#10192b; --ink-2:#3c485c; --ink-soft:#5e6b80; --ink-faint:#94a0b2;
+    --primary:#3949c4; --primary-2:#5b6ae0; --primary-tint:#eef1fd;
+    --sky:#0e7fc1; --teal:#0c8577; --teal-tint:#e6f5f2; --green:#0a8a55;
+    --amber:#bf7a12; --amber-tint:#fbf2e0; --rose:#d23158; --rose-tint:#fceaee;
+    --line:#e6eaf1; --line-2:#d3dae5; --paper:#f8fafc;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+    color:var(--ink);padding:44px 0;-webkit-font-smoothing:antialiased;}
+  .deck{display:flex;flex-direction:column;align-items:center;gap:36px;}
+  .slide{width:1280px;height:720px;background:var(--slide);position:relative;overflow:hidden;
+    border-radius:16px;box-shadow:0 20px 56px rgba(16,25,43,.18);padding:48px 58px 30px;display:flex;flex-direction:column;}
+  .slide::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--primary);}
+  .slide.t::before{background:var(--teal);}
+  .head{flex:none;margin-bottom:20px;}
+  .kicker{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--primary);margin-bottom:13px;}
+  .kicker b{background:var(--primary);color:#fff;padding:2px 9px;border-radius:5px;letter-spacing:.05em;}
+  .t .kicker{color:var(--teal);} .t .kicker b{background:var(--teal);}
+  h1.title{font-size:33px;font-weight:800;line-height:1.2;letter-spacing:-.4px;color:var(--ink);}
+  .subtitle{font-size:16px;color:var(--ink-soft);font-weight:500;margin-top:9px;line-height:1.5;max-width:1040px;}
+  .body{flex:1;display:flex;flex-direction:column;min-height:0;gap:18px;}
+  .row{display:flex;gap:18px;} .row.grow{flex:1;min-height:0;}
+  .col{flex:1;min-width:0;display:flex;flex-direction:column;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1;min-height:0;}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;flex:1;min-height:0;}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .foot{flex:none;display:flex;justify-content:space-between;align-items:center;font-size:12px;
+    color:var(--ink-faint);border-top:1px solid var(--line);padding-top:11px;margin-top:16px;}
+  .foot .b{color:var(--ink-2);font-weight:700;}
+  .pageno{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink-soft);}
+  p{line-height:1.62;color:var(--ink-soft);font-size:15.5px;}
+  b,strong{color:var(--ink);font-weight:700;}
+  .hl{color:var(--primary);font-weight:700;} .hl-t{color:var(--teal);font-weight:700;}
+  .hl-a{color:var(--amber);font-weight:700;} .hl-r{color:var(--rose);font-weight:700;}
+  .card{background:var(--slide);border:1px solid var(--line-2);border-radius:13px;padding:22px 24px;
+    display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(16,25,43,.04);}
+  .card.center{justify-content:center;}
+  .card .ct{font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);
+    margin-bottom:11px;display:flex;align-items:center;gap:8px;}
+  .card.s .ct{color:var(--sky);} .card.te .ct{color:var(--teal);} .card.a .ct{color:var(--amber);}
+  .card.g .ct{color:var(--green);} .card.r .ct{color:var(--rose);}
+  .card h3{font-size:18px;font-weight:800;color:var(--ink);margin-bottom:9px;line-height:1.3;}
+  .card p{font-size:14.5px;line-height:1.56;}
+  .accent{border-top:3px solid var(--primary);}
+  .accent.s{border-top-color:var(--sky);} .accent.te{border-top-color:var(--teal);}
+  .accent.a{border-top-color:var(--amber);} .accent.g{border-top-color:var(--green);} .accent.r{border-top-color:var(--rose);}
+  .soft{background:var(--paper);border-color:var(--line);}
+  ul.steps{list-style:none;display:flex;flex-direction:column;gap:13px;justify-content:center;flex:1;}
+  ul.steps li{display:flex;gap:13px;align-items:flex-start;font-size:15px;line-height:1.55;color:var(--ink-2);}
+  ul.steps li > span:not(.num){flex:1;min-width:0;}
+  .num{flex:none;width:25px;height:25px;border-radius:7px;background:var(--primary);color:#fff;font-weight:800;
+    font-size:13.5px;display:flex;align-items:center;justify-content:center;}
+  .num.s{background:var(--sky);} .num.te{background:var(--teal);} .num.a{background:var(--amber);}
+  .num.g{background:var(--green);} .num.r{background:var(--rose);}
+  ul.dots{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  ul.dots li{position:relative;padding-left:18px;font-size:14.5px;line-height:1.6;color:var(--ink-2);}
+  ul.dots li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--primary);}
+  ul.dots.te li::before{background:var(--teal);} ul.dots.a li::before{background:var(--amber);}
+  ul.dots.g li::before{background:var(--green);} ul.dots.s li::before{background:var(--sky);}
+  /* 要点面板：li 是 flex 行 + 垂直居中；正文必须包成 <li><span>…</span></li>，否则
+     CJK 文字 + <b> 会被 flex 拆成多个 item，导致「加粗处莫名换行 / 竖排」。务必写 span。 */
+  ul.feat{list-style:none;display:flex;flex-direction:column;gap:12px;flex:1;min-height:0;}
+  ul.feat li{flex:1;min-height:0;position:relative;display:flex;align-items:center;
+    padding:14px 20px 14px 42px;background:var(--paper);border:1px solid var(--line);
+    border-left:3px solid var(--primary);border-radius:11px;box-shadow:0 1px 2px rgba(16,25,43,.03);}
+  ul.feat li::before{content:"";position:absolute;left:18px;top:50%;transform:translateY(-50%);
+    width:9px;height:9px;border-radius:2px;background:var(--primary);}
+  ul.feat li > span{flex:1;min-width:0;font-size:15.5px;line-height:1.5;color:var(--ink-2);}
+  ul.feat.sm li > span{font-size:13.5px;line-height:1.48;}
+  ul.feat.s li{border-left-color:var(--sky);} ul.feat.s li::before{background:var(--sky);}
+  ul.feat.te li{border-left-color:var(--teal);} ul.feat.te li::before{background:var(--teal);}
+  ul.feat.a li{border-left-color:var(--amber);} ul.feat.a li::before{background:var(--amber);}
+  ul.feat.g li{border-left-color:var(--green);} ul.feat.g li::before{background:var(--green);}
+  ul.feat.r li{border-left-color:var(--rose);} ul.feat.r li::before{background:var(--rose);}
+  .stat{text-align:center;align-items:center;justify-content:center;}
+  .stat .n{font-size:42px;font-weight:800;line-height:1;letter-spacing:-1.5px;color:var(--primary);}
+  .stat.te .n{color:var(--teal);} .stat.a .n{color:var(--amber);} .stat.g .n{color:var(--green);}
+  .stat .l{font-size:13.5px;color:var(--ink-soft);margin-top:11px;line-height:1.4;font-weight:500;}
+  .formula{position:relative;background:linear-gradient(180deg,#fbfcfe 0%,#eef2f8 100%);
+    border:1px solid var(--line-2);border-radius:12px;padding:18px 26px;
+    font-family:"STIX Two Math","Cambria Math","Latin Modern Math",Georgia,"Times New Roman",serif;
+    font-size:21px;color:var(--ink);text-align:center;line-height:1.6;letter-spacing:.2px;}
+  .formula::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:3px;border-radius:3px;background:var(--primary);opacity:.5;}
+  .formula i,.formula em{font-style:italic;}
+  .formula .v{color:var(--primary);font-style:italic;font-weight:600;}
+  .formula small{font-size:.62em;vertical-align:-0.32em;font-style:italic;letter-spacing:0;color:var(--ink-soft);}
+  .formula sup{font-size:.62em;vertical-align:0.5em;}
+  .formula .op{color:var(--ink-faint);font-style:normal;padding:0 .12em;}
+  .formula .eqno{position:absolute;right:18px;top:50%;transform:translateY(-50%);
+    font-family:-apple-system,"PingFang SC",sans-serif;font-size:12px;font-style:normal;font-weight:700;color:var(--ink-faint);letter-spacing:.04em;}
+  .legend{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+  .legend span{font-size:13px;color:var(--ink-2);background:var(--slide);border:1px solid var(--line-2);border-radius:7px;padding:5px 11px;line-height:1.2;}
+  .legend span b{color:var(--primary);font-family:Georgia,"Times New Roman",serif;font-style:italic;margin-right:5px;font-weight:700;}
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th,td{text-align:center;padding:11px 10px;border-bottom:1px solid var(--line);}
+  th{color:var(--ink);font-weight:800;background:var(--paper);font-size:13px;}
+  td{color:var(--ink-soft);} td.lab{text-align:left;color:var(--ink);font-weight:600;}
+  tr.best td{background:var(--teal-tint);color:var(--teal);font-weight:800;}
+  .badge{display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px;background:var(--primary-tint);color:var(--primary);}
+  .badge.te{background:var(--teal-tint);color:var(--teal);} .badge.a{background:var(--amber-tint);color:var(--amber);}
+  .bar{flex:none;background:var(--primary-tint);border:1px solid #d6dcfb;border-left:4px solid var(--primary);
+    border-radius:10px;padding:14px 20px;display:flex;align-items:center;gap:13px;}
+  .bar.te{background:var(--teal-tint);border-color:#bfe3dd;border-left-color:var(--teal);}
+  .bar.a{background:var(--amber-tint);border-color:#f0ddb8;border-left-color:var(--amber);}
+  .bar p{font-size:14.5px;color:var(--ink-2);flex:1;min-width:0;}
+  .bar .ic{font-size:18px;flex:none;}
+  .fig{flex:1;min-height:0;background:var(--paper);border:1px solid var(--line-2);border-radius:13px;
+    display:flex;align-items:center;justify-content:center;overflow:hidden;padding:10px;}
+  .fig img{max-width:100%;max-height:100%;object-fit:contain;display:block;}
+  .media{position:relative;border-radius:13px;overflow:hidden;border:1px solid var(--line-2);background:#0c1016;flex:1;min-height:0;}
+  .media img{width:100%;height:100%;object-fit:cover;display:block;}
+  .vtag{position:absolute;top:14px;left:14px;background:rgba(12,16,22,.78);color:#fff;font-size:12px;font-weight:600;
+    padding:6px 12px;border-radius:7px;display:flex;align-items:center;gap:7px;backdrop-filter:blur(4px);}
+  .vtag .d{width:8px;height:8px;border-radius:50%;background:var(--amber);flex:none;}
+  .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;
+    background:rgba(255,255,255,.94);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.4);}
+  .play::after{content:"";border-left:19px solid var(--primary);border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px;}
+  .cap{flex:none;font-size:12.5px;color:var(--ink-faint);margin-top:9px;line-height:1.45;}
+  /* ---- 内联 SVG 图（流程/架构/UML/甘特/分类桶）：吃满剩余高度 ---- */
+  .viz{flex:1;min-height:0;display:flex;}
+  .viz svg{width:100%;height:100%;display:block;}
+  svg text{font-family:-apple-system,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;}
+  /* ---- 浅色代码块（与文稿统一，勿用纯黑）+ 行内 code 胶囊 ---- */
+  .code{font-family:"SF Mono","JetBrains Mono",Consolas,monospace;font-size:12.5px;background:var(--paper);
+    color:#33415c;border:1px solid var(--line-2);border-radius:11px;padding:18px 20px;line-height:1.64;
+    white-space:pre;overflow:hidden;flex:1;box-shadow:inset 0 1px 2px rgba(16,25,43,.04);}
+  .code .k{color:#8a30c0;font-weight:600;} .code .s{color:#0a7a4a;} .code .c{color:#94a0b2;font-style:italic;}
+  .code .a{color:#bf7a12;} .code .t{color:#0e7fc1;} .code .m{color:#3949c4;}
+  code{font-family:"SF Mono",Consolas,monospace;font-size:.9em;background:var(--primary-tint);
+    color:var(--primary);padding:1px 6px;border-radius:5px;font-weight:600;}
+  .t code{background:var(--teal-tint);color:var(--teal);}
+  /* ---- 术语 + 代码 定义式清单（比挤成一团的 chip 清晰） ---- */
+  .kv{display:flex;flex-direction:column;gap:11px;flex:1;justify-content:center;}
+  .kv .r{display:flex;align-items:center;gap:11px;}
+  .kv .r code{flex:none;min-width:112px;text-align:center;font-size:13px;}
+  .kv .r span{flex:1;min-width:0;font-size:13px;color:var(--ink-soft);line-height:1.4;}
+  .kv.te .r code{background:var(--teal-tint);color:var(--teal);}
+  .kv.a .r code{background:var(--amber-tint);color:var(--amber);}
+  /* ---- 图片下方紧凑要点条（block 流，<b>/标题安全不拆行） ---- */
+  .mini{flex:1;min-width:0;background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--primary);
+    border-radius:10px;padding:11px 15px;}
+  .mini .h{color:var(--ink);font-size:14px;font-weight:800;margin-bottom:4px;}
+  .mini p{font-size:12.5px;color:var(--ink-soft);line-height:1.46;}
+  .mini.te{border-left-color:var(--teal);} .mini.te .h{color:var(--teal);}
+  .mini.a{border-left-color:var(--amber);} .mini.a .h{color:var(--amber);}
+  /* 图为主页：右侧要点列用 col.compact —— 块保持自然高度、整体居中，不被拉高留白 */
+  .col.compact{justify-content:center;} .col.compact .mini{flex:none;}
+  /* 卡片底部「意义/结论」小注（block 流，<b> 内联安全） */
+  .agv{flex:none;margin-top:12px;font-size:12.5px;color:var(--ink-2);background:var(--primary-tint);
+    border-radius:9px;padding:9px 12px;line-height:1.45;}
+  .agv b{color:var(--primary);font-weight:800;}
+  .card.te .agv{background:var(--teal-tint);} .card.te .agv b{color:var(--teal);}
+  .card.a .agv{background:var(--amber-tint);} .card.a .agv b{color:var(--amber);}
+  .cover{padding:0;} .cover::before{display:none;}
+  .cover .bgwrap{position:absolute;inset:0;background:linear-gradient(125deg,#27308f 0%,#3949c4 48%,#5360db 100%);}
+  .cover .deco i{position:absolute;border-radius:50%;border:1.5px solid rgba(255,255,255,.12);}
+  .cover .inner{position:relative;z-index:2;color:#fff;padding:74px;height:100%;display:flex;flex-direction:column;justify-content:center;}
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- ============ 封面 ============ -->
+<section class="slide cover">
+  <div class="bgwrap"></div>
+  <div class="deco">
+    <i style="width:560px;height:560px;right:-140px;top:-170px;"></i>
+    <i style="width:380px;height:380px;right:-30px;top:-30px;border-color:rgba(255,255,255,.18);"></i>
+    <i style="width:260px;height:260px;left:-100px;bottom:-120px;"></i>
+  </div>
+  <div class="inner" style="align-items:center;text-align:center;">
+    <div style="font-size:15px;font-weight:700;letter-spacing:.26em;opacity:.82;margin-bottom:34px;">副标题 / 单位 / 课程</div>
+    <div style="font-size:74px;font-weight:800;line-height:1.02;letter-spacing:-2px;">演示文稿标题</div>
+    <div style="font-size:25px;opacity:.74;font-style:italic;margin-top:20px;">English Subtitle Goes Here</div>
+    <div style="width:72px;height:4px;background:rgba(255,255,255,.6);border-radius:2px;margin:28px auto;"></div>
+    <div style="font-size:18px;font-weight:600;opacity:.9;">汇报人 · 日期</div>
+  </div>
+</section>
+
+<!-- ============ 内容页：要点面板 + 看板 ============ -->
+<section class="slide">
+  <div class="head">
+    <div class="kicker"><b>01</b> 章节名</div>
+    <h1 class="title">内容页示例：每个要点一个容器</h1>
+    <div class="subtitle">正文要点用 ul.feat 包裹，自动均分高度、撑满卡片，绝不留大白框。</div>
+  </div>
+  <div class="body">
+    <div class="grid4" style="flex:none;">
+      <div class="card stat"><div class="n">123<span style="font-size:20px;">个</span></div><div class="l">关键指标一</div></div>
+      <div class="card stat te"><div class="n">98<span style="font-size:18px;">%</span></div><div class="l">关键指标二</div></div>
+      <div class="card stat a"><div class="n">5.2<span style="font-size:18px;">x</span></div><div class="l">关键指标三</div></div>
+      <div class="card stat g"><div class="n">SOTA</div><div class="l">关键指标四</div></div>
+    </div>
+    <div class="row grow">
+      <div class="card accent s col">
+        <div class="ct s">左栏小标题</div>
+        <ul class="feat s">
+          <li><span><b>要点一</b>：一句有信息量、带数字或机制的说明文字（正文务必包在 span 里）</span></li>
+          <li><span><b>要点二</b>：第二条要点，尽量具体不空泛</span></li>
+        </ul>
+      </div>
+      <div class="card accent a col">
+        <div class="ct a">右栏小标题</div>
+        <ul class="feat a">
+          <li><span><b>要点一</b>：右栏第一条</span></li>
+          <li><span><b>要点二</b>：右栏第二条</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bar"><span class="ic">★</span><p>底部金句：一句话点出本页结论。</p></div>
+  </div>
+  <div class="foot"><span class="b">项目名 · 章节</span><span class="pageno">02 / 04</span></div>
+</section>
+
+<!-- ============ 内容页：公式 + 注释芯片 + 对比表 ============ -->
+<section class="slide">
+  <div class="head">
+    <div class="kicker"><b>02</b> 章节名</div>
+    <h1 class="title">公式页示例：排版美观且不留空</h1>
+    <div class="subtitle">公式用 .formula（衬线斜体 + 上下标），下方配 .legend 芯片解释符号。</div>
+  </div>
+  <div class="body">
+    <div class="row grow">
+      <div class="card accent col" style="flex:1.1;">
+        <div class="ct">公式</div>
+        <div class="formula" style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;">
+          <div>( <span class="v">C</span>, <span class="v">D</span> ) <span class="op">=</span>
+            <span style="font-size:1.25em;">∑</span><small>i∈N</small> ( <i>c</i><small>i</small>, <i>z</i><small>i</small> )
+            <span class="op">·</span> <span class="v"><i>f</i><small>i</small></span>
+            <span class="op">·</span> <span style="font-size:1.25em;">∏</span><small>j&lt;i</small> ( 1 <span class="op">−</span> <i>f</i><small>j</small> )</div>
+          <div class="legend">
+            <span><b>C</b>颜色</span><span><b>D</b>深度</span><span><b>f<small>i</small></b>第 i 个权重</span><span><b>∏(1−f)</b>透射率</span>
+          </div>
+        </div>
+      </div>
+      <div class="card accent te col" style="flex:.9;">
+        <div class="ct te">消融对比（越低越好）</div>
+        <table style="margin:8px 0;">
+          <tr><th>策略</th><th>场景A</th><th>场景B</th></tr>
+          <tr><td class="lab">基线</td><td>0.25</td><td>0.83</td></tr>
+          <tr><td class="lab">改进</td><td>0.19</td><td>0.64</td></tr>
+          <tr class="best"><td class="lab">本文</td><td>0.16</td><td>0.39</td></tr>
+        </table>
+        <div class="bar te" style="margin-top:auto;"><span class="ic">↻</span><p>表格最优行用 tr.best 高亮。</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="b">项目名 · 章节</span><span class="pageno">03 / 04</span></div>
+</section>
+
+<!-- ============ 内容页：图为主（图左占满高度 + 右侧紧凑要点） ============ -->
+<!-- 偏方/近正方的图别居中铺满整宽（会被压小）；放左侧吃满高度，按图长宽比给 fig/viz 更大的 flex，
+     右侧用 col.compact 放 .mini 要点（自然高度、整体居中，不被拉空）。换成真图就把 .viz+svg 改成 <div class="fig"><img src="..."></div>。-->
+<section class="slide t">
+  <div class="head tight">
+    <div class="kicker"><b>03</b> 章节名</div>
+    <h1 class="title">图为主示例：图占满高度，右侧放紧凑要点</h1>
+  </div>
+  <div class="body">
+    <div class="row grow">
+      <div class="viz" style="flex:1.4;">
+        <svg viewBox="0 0 520 360" preserveAspectRatio="xMidYMid meet">
+          <defs><marker id="ar" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7a8aa8"/></marker></defs>
+          <rect x="150" y="22" width="220" height="64" rx="12" fill="#e6f5f2" stroke="#83cabf" stroke-width="1.5"/>
+          <text x="260" y="60" text-anchor="middle" font-size="16" font-weight="800" fill="#0c8577">输入 / 起点</text>
+          <rect x="150" y="148" width="220" height="64" rx="12" fill="#eef1fd" stroke="#c9d2f7" stroke-width="1.5"/>
+          <text x="260" y="186" text-anchor="middle" font-size="16" font-weight="800" fill="#3949c4">处理 / 编排</text>
+          <rect x="150" y="274" width="220" height="64" rx="12" fill="#3949c4"/>
+          <text x="260" y="312" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">输出 / 结果</text>
+          <g stroke="#7a8aa8" stroke-width="2" fill="none" marker-end="url(#ar)">
+            <line x1="260" y1="86" x2="260" y2="146"/>
+            <line x1="260" y1="212" x2="260" y2="272"/>
+          </g>
+        </svg>
+      </div>
+      <div class="col compact" style="flex:1;gap:14px;">
+        <div class="mini"><div class="h">要点块用 .mini</div><p>标题 + 一两行说明；block 流，<b>加粗</b>内联安全、不拆行</p></div>
+        <div class="mini te"><div class="h">col.compact</div><p>要点保持自然高度、整体垂直居中，不被拉高留白</p></div>
+        <div class="mini a"><div class="h">fig / viz 按图比例给 flex</div><p>偏方的图给更大 flex，让它吃满高度、看得清</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="b">项目名 · 章节</span><span class="pageno">04 / 04</span></div>
+</section>
+
+</div>
+</body>
+</html>
