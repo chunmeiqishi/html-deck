@@ -1,5 +1,7 @@
 # html-deck
 
+**English** · [简体中文](README.zh-CN.md)
+
 Hand-code slides as **HTML** (fixed 1280×720 sections in an opinionated, professional theme), render each section with **headless Chrome**, and assemble a 16:9 **`.pptx`** where every slide is one full-bleed image.
 
 It ships as a **[Claude Code](https://docs.claude.com/en/docs/claude-code) skill** — so you can just say *"make a defense deck from these notes"* and let the agent write the HTML for you — but the scripts also work **standalone** from any terminal.
